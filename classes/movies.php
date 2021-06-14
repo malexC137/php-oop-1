@@ -6,24 +6,31 @@ class Movie {
     public $director; 
     public $genre;
     public $country = "US";
-    public $language = "En";
+    public $language = "english";
     public $age;
 
-    function __construct($movTitle, $movYear, $movDirector, $movGenre, $movLanguage) {
+    function __construct($movTitle, $movYear, $movDirector, $movGenre, $movLanguage = NULL) {
         $this->title = $movTitle;
         $this->year = $movYear;
         $this->director = $movDirector;
         $this->genre = $movGenre;
-        $this->language = $movLanguage;
+        $this->language = isset($movLanguage) ? $movLanguage : $this->language;
     }
 
     public function getTitleYearDirector() {
-        return $this->title . " " . $this->year . " " . $this->director;
+        return $this->director . " presents: " . $this->title . " - " . $this->year;
     }
 
     public function getMovieAge() {
-        return $this->age = date("Y") - $this->year . " years old";
+        return $this->age = "Released " . (date("Y") - $this->year) . " years ago";
     }
     
+    public function renderMovie() {
+        echo "<h1>" . $this->getTitleYearDirector() . "</h1>";
+        echo "<p>Genre: " . $this->genre . "</p>";
+        echo "<p>Country: " . $this->country . "</p>";
+        echo "<p>Language: " . $this->language . "</p>";
+        echo "<p>" . $this->age . "</p>";
+    }
 
 }
